@@ -51,7 +51,7 @@ Xem [cấu trúc thư mục đã thu gọn](docs/PROJECT_STRUCTURE.md).
 - res chứa quân cờ tại pieces/white và pieces/black, cùng theme tại themes. Người dùng sẽ cung cấp tài nguyên yêu thích; quân cờ và theme trong bản phác thảo hiện tại chưa được chốt.
 - data chứa tài khoản/điểm nếu lưu file; logs chứa log trận đấu.
 - docs giữ tài liệu; output giữ phác thảo giao diện hiện có.
-- Người dùng đã xác nhận cấu trúc thu gọn này. Đã tạo các thư mục chính server, client, data và logs; chưa triển khai mã nguồn. Công nghệ giao diện, mô hình I/O và định dạng dữ liệu còn cần chốt.
+- Người dùng đã xác nhận cấu trúc thu gọn này. Đã tạo thư mục chính và khung 7 file C cùng server.h, có ghi người phụ trách/nhiệm vụ. main.c mới in thông báo, chưa triển khai socket hoặc chức năng nghiệp vụ. Công nghệ giao diện, mô hình I/O và định dạng dữ liệu còn cần chốt.
 - Rà soát theo bảng điểm: cấu trúc đã phân đủ trách nhiệm cho 13 tiêu chí, nhưng chưa thể xác nhận sản phẩm đạt yêu cầu khi chưa có mã nguồn và kiểm chứng. Các chi tiết còn thiếu được ghi trong phần rà soát của tài liệu cấu trúc.
 
 ## Yêu cầu chức năng

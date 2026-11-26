@@ -31,7 +31,7 @@ Laptrinhmang/
 └── PROJECT_NOTES.md
 ```
 
-Đã tạo các thư mục chính server, client, data và logs; chưa tạo các file mã nguồn. Công nghệ giao diện, nền tảng chạy, mô hình I/O và định dạng giao thức chưa chốt. Các tài liệu hiện có trong docs được giữ lại để tham khảo.
+Đã tạo các thư mục chính server, client, data và logs. Trong server đã có khung 7 file .c và server.h, ghi rõ người phụ trách và nhiệm vụ. main.c chỉ in thông báo khung chương trình; chưa triển khai socket hoặc chức năng project. Công nghệ giao diện, nền tảng chạy, mô hình I/O và định dạng giao thức chưa chốt.
 
 ## Trách nhiệm các file server
 
