@@ -4,6 +4,8 @@
 
 Người dùng đã chốt cấu trúc thu gọn này ngày 26/11/2026.
 
+Khi chia việc cho ba người, tách thêm lobby.c từ game.c để phần sảnh/thách đấu và phần quản lý trận có chủ file riêng. Server gồm 7 file .c và một header chung; không thêm tầng kiến trúc.
+
 ## Cấu trúc đã chốt
 
 ```text
@@ -13,7 +15,8 @@ Laptrinhmang/
 │   ├── server.h      # Struct, hằng số và khai báo hàm
 │   ├── network.c     # Socket, gửi/nhận, xử lý truyền dòng
 │   ├── account.c     # Tài khoản, phiên, điểm và xếp hạng
-│   ├── game.c        # Sảnh, thách đấu và quản lý ván đấu
+│   ├── lobby.c       # Danh sách sẵn sàng và thách đấu
+│   ├── game.c        # Quản lý ván, nước đi và kết thúc
 │   ├── chess.c       # Bàn cờ, luật đi và kết quả theo luật
 │   └── log.c         # Ghi và gửi file log
 ├── client/           # Giao diện và kết nối tới server
@@ -38,11 +41,14 @@ Laptrinhmang/
 | server.h | Khai báo các kiểu như Account, Player, Game, giới hạn số người chơi/trận và các hàm dùng giữa các file |
 | network.c | Tạo và đóng socket, gửi/nhận, nhận diện thông điệp đầy đủ, giữ dữ liệu còn thiếu và xử lý gửi chưa hết |
 | account.c | Đăng ký, đăng nhập, quản lý phiên, đọc/ghi tài khoản và điểm, tính thứ hạng |
-| game.c | Danh sách sẵn sàng, kiểm tra giới hạn thách đấu 10 bậc, nhận/từ chối lời mời, tạo ván, kiểm tra lượt, chuyển nước đi, xin ngừng và điều phối kết thúc trận |
+| lobby.c | Danh sách sẵn sàng, giới hạn thách đấu 10 bậc, chuyển/nhận/từ chối lời mời và gọi tạo trận khi nhận lời hợp lệ |
+| game.c | Tạo ván, kiểm tra người chơi/lượt, chuyển nước đi, xin ngừng và điều phối kết thúc trận |
 | chess.c | Khởi tạo bàn cờ, kiểm tra và áp dụng nước đi, phát hiện thắng/thua/hòa theo phạm vi luật thống nhất |
 | log.c | Ghi bắt đầu, kết thúc, IP hai bên, lịch sử nước đi và gửi log cho hai client |
 
 game.c gọi chess.c để kiểm tra luật, gọi account.c để cập nhật điểm đúng một lần khi kết thúc và gọi log.c để hoàn tất log. Server C quyết định trạng thái và kết quả chính thức.
+
+Phân công chủ file và màn hình client nằm trong [kế hoạch nhóm](TEAM_PLAN.md): Đạt phụ trách mạng server/tài khoản, Minh phụ trách mạng client/sảnh/luật, Duy phụ trách mạng ván đấu/truyền log. Mỗi người có phần giao diện và báo cáo tương ứng.
 
 ## Client và dữ liệu
 
@@ -68,8 +74,8 @@ Cấu trúc hiện tại đã phân đủ trách nhiệm cho cả 13 tiêu chí,
 | --- | ---: | --- |
 | Truyền dòng và vào/ra socket | 1 + 2 | main.c, network.c |
 | Đăng ký, quản lý tài khoản, đăng nhập và phiên | 2 + 2 | account.c |
-| Danh sách người chơi sẵn sàng | 2 | game.c phối hợp account.c |
-| Chuyển lời thách đấu, nhận và từ chối | 2 + 1 | game.c, dùng thứ hạng từ account.c |
+| Danh sách người chơi sẵn sàng | 2 | lobby.c phối hợp account.c và game.c |
+| Chuyển lời thách đấu, nhận và từ chối | 2 + 1 | lobby.c, dùng thứ hạng từ account.c và tạo trận qua game.c |
 | Chuyển nước đi, kiểm tra hợp lệ, xác định kết quả | 2 + 1 + 1 | game.c, chess.c, network.c |
 | Ghi log, chuyển kết quả và log | 1 + 2 | log.c, game.c, network.c |
 | Xin ngừng ván cờ | 1 | game.c phối hợp account.c và log.c |

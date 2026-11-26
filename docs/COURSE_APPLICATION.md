@@ -40,7 +40,7 @@ Nguồn chính: slide 14–18 và 22–29.
 
 Nguồn chính: slide 4–6, 8–24 và 42–43.
 
-- Chia chương trình thành vài file C: main, network, account, game, chess và log; dùng server.h cho các khai báo chung khi quy mô còn nhỏ.
+- Chia chương trình thành vài file C: main, network, account, lobby, game, chess và log; dùng server.h cho các khai báo chung khi quy mô còn nhỏ. lobby được tách khỏi game để chia chủ file rõ ràng cho nhóm ba người.
 - Vận dụng con trỏ, mảng, cấp phát bộ nhớ và thao tác bộ nhớ để quản lý danh sách người chơi, bàn cờ, lịch sử nước đi và bộ đệm truyền nhận.
 - Vận dụng xử lý chuỗi để phân tích lệnh nếu chọn payload dạng văn bản.
 - Vận dụng file I/O cho log và, nếu chọn lưu file, dữ liệu tài khoản/điểm số.

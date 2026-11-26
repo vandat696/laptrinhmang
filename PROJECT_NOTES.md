@@ -12,7 +12,9 @@ Project xây dựng ứng dụng chơi cờ trực tuyến. Sinh viên được 
 - Ứng dụng sẽ có giao diện; chưa chọn công nghệ frontend.
 - Thiết kế và triển khai cần vận dụng kiến thức trong 7 bộ slide Chapter 1–7 do người dùng cung cấp.
 - Quy mô nhỏ: ưu tiên code đơn giản, dễ hiểu, ít file/thư mục và đủ yêu cầu đề bài.
-- Đã chốt cấu trúc thu gọn ngày 26/11/2026: server C gồm 6 file .c và server.h, cùng các thư mục client, data, logs và tài liệu.
+- Đã chốt cấu trúc thu gọn ngày 26/11/2026; khi phân công ba người, bổ sung lobby.c để tránh cùng sửa game.c. Server C gồm 7 file .c và server.h, cùng các thư mục client, data, logs và tài liệu.
+- Nhóm có 3 thành viên: Văn Thành Đạt, Đặng Hoàng Minh và Trần Văn Duy. Xem [kế hoạch phân công đến khi hoàn thành](docs/TEAM_PLAN.md).
+- Yêu cầu phân công: chia đều phần xử lý mạng được chấm điểm và các việc còn lại; mỗi file/màn hình có một người phụ trách để tránh sửa chồng.
 - Chưa chốt nền tảng chạy, cơ sở dữ liệu hoặc thiết kế giao thức.
 - Người dùng sẽ thảo luận và cung cấp thêm thông tin sau. Các lựa chọn triển khai cần được cập nhật theo những trao đổi đó.
 
@@ -28,6 +30,8 @@ Người dùng yêu cầu thu gọn thiết kế: chia theo chức năng thành 
 
 Ưu tiên xuyên suốt là dễ hiểu và đúng kiến thức môn học: người dùng cần giải thích được luồng xử lý, các lời gọi socket và cách xử lý dữ liệu. Giữ đủ chức năng bắt buộc; không thêm tính năng ngoài đề nếu chưa có yêu cầu.
 
+Phân công cập nhật: Đạt làm mạng server/tài khoản và màn hình tài khoản/khung app; Minh làm mạng client, sảnh/thách đấu, luật cờ và màn hình sảnh; Duy làm truyền nước đi/kết quả/log, quản lý trận và màn hình bàn cờ/kết quả. Nhóm tiêu chí phụ trách cân đối khoảng 7–7–6 điểm. Mỗi người tự kiểm tra và viết báo cáo phần mình, cùng tích hợp theo mốc; không giao toàn bộ GUI hoặc toàn bộ xử lý mạng cho một người.
+
 ## Kiến thức môn học cần vận dụng
 
 Đã ghi nhận 7 bộ slide về mô hình mạng, lập trình UNIX C/C++, socket TCP/UDP, server đa tiến trình, server đa luồng và I/O multiplexing. Xem [bản đối chiếu kiến thức với project và thang điểm](docs/COURSE_APPLICATION.md) để biết các chương, số slide và cách áp dụng cụ thể.
@@ -42,7 +46,7 @@ Người dùng yêu cầu thu gọn thiết kế: chia theo chức năng thành 
 
 Xem [cấu trúc thư mục đã thu gọn](docs/PROJECT_STRUCTURE.md).
 
-- server gồm main.c, server.h, network.c, account.c, game.c, chess.c và log.c.
+- server gồm main.c, server.h, network.c, account.c, lobby.c, game.c, chess.c và log.c.
 - client chứa giao diện và phần kết nối mạng, chưa chia nhiều thư mục con.
 - res chứa quân cờ tại pieces/white và pieces/black, cùng theme tại themes. Người dùng sẽ cung cấp tài nguyên yêu thích; quân cờ và theme trong bản phác thảo hiện tại chưa được chốt.
 - data chứa tài khoản/điểm nếu lưu file; logs chứa log trận đấu.
