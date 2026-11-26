@@ -1,0 +1,317 @@
+<div id="chess-product-preview" lang="vi" aria-label="Phác thảo ứng dụng cờ vua trực tuyến">
+  <style>
+    #chess-product-preview {
+      --cp-bg: light-dark(#f5f6f3, #171c1a);
+      --cp-panel: light-dark(#ffffff, #222a25);
+      --cp-ink: light-dark(#23372b, #edf2ed);
+      --cp-muted: light-dark(#59695e, #b7c3b9);
+      --cp-line: light-dark(#dce3dc, #3d4a40);
+      --cp-soft: light-dark(#edf2ec, #2d3a30);
+      --cp-accent: light-dark(#2f6544, #a8d7af);
+      --cp-on-accent: light-dark(#ffffff, #173322);
+      --cp-danger: light-dark(#a43838, #ffb0a8);
+      --cp-light-square: light-dark(#e9eddf, #cdd8c5);
+      --cp-dark-square: light-dark(#88a184, #6c886b);
+      color: var(--cp-ink);
+      font: 14px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif;
+      width: 100%;
+    }
+    #chess-product-preview * { box-sizing: border-box; }
+    #chess-product-preview [hidden] { display: none !important; }
+    #chess-product-preview h2, #chess-product-preview h3, #chess-product-preview p { margin: 0; }
+    #chess-product-preview h2 { font-size: 22px; font-weight: 600; letter-spacing: -.4px; }
+    #chess-product-preview h3 { font-size: 15px; font-weight: 600; }
+    #chess-product-preview .cp-window { background: var(--cp-bg); border: 1px solid var(--cp-line); border-radius: 14px; overflow: hidden; }
+    #chess-product-preview .cp-titlebar { display: flex; align-items: center; gap: 12px; padding: 15px 110px 15px 20px; background: var(--cp-panel); border-bottom: 1px solid var(--cp-line); }
+    #chess-product-preview .cp-logo { font-size: 29px; color: var(--cp-accent); line-height: 1; }
+    #chess-product-preview .cp-brand { font-weight: 650; }
+    #chess-product-preview .cp-subtle { color: var(--cp-muted); font-size: 12px; }
+    #chess-product-preview .cp-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 10px 18px; border-bottom: 1px solid var(--cp-line); background: var(--cp-panel); }
+    #chess-product-preview button { font: inherit; cursor: pointer; }
+    #chess-product-preview button:disabled { cursor: not-allowed; opacity: .6; }
+    #chess-product-preview .cp-tab { border: 0; background: transparent; color: var(--cp-muted); border-radius: 7px; padding: 8px 12px; }
+    #chess-product-preview .cp-tab[aria-selected="true"] { background: var(--cp-soft); color: var(--cp-ink); font-weight: 600; }
+    #chess-product-preview .cp-main { padding: 22px; }
+    #chess-product-preview .cp-heading { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
+    #chess-product-preview .cp-tag { display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px; border-radius: 20px; background: var(--cp-soft); color: var(--cp-accent); font-size: 12px; font-weight: 600; }
+    #chess-product-preview .cp-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cp-accent); }
+    #chess-product-preview .cp-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(225px, 1fr); gap: 22px; align-items: start; }
+    #chess-product-preview .cp-card { background: var(--cp-panel); border: 1px solid var(--cp-line); border-radius: 10px; padding: 18px; min-width: 0; }
+    #chess-product-preview .cp-stack { display: grid; gap: 16px; }
+    #chess-product-preview .cp-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    #chess-product-preview .cp-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
+    #chess-product-preview .cp-button { padding: 8px 13px; border: 1px solid var(--cp-line); background: var(--cp-panel); color: var(--cp-ink); border-radius: 7px; }
+    #chess-product-preview .cp-button:hover:not(:disabled) { background: var(--cp-soft); }
+    #chess-product-preview .cp-primary { color: var(--cp-on-accent); background: var(--cp-accent); border-color: var(--cp-accent); }
+    #chess-product-preview .cp-primary:hover:not(:disabled) { color: var(--cp-on-accent); background: var(--cp-accent); filter: brightness(.95); }
+    #chess-product-preview .cp-danger { color: var(--cp-danger); }
+    #chess-product-preview .cp-person { display: flex; align-items: center; gap: 10px; }
+    #chess-product-preview .cp-avatar { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 9px; background: var(--cp-soft); color: var(--cp-accent); font-weight: 650; flex-shrink: 0; }
+    #chess-product-preview .cp-opponent { margin-bottom: 12px; }
+    #chess-product-preview .cp-self { margin-top: 12px; }
+    #chess-product-preview .cp-board { width: 100%; display: grid; grid-template-columns: repeat(8, 1fr); aspect-ratio: 1; border-radius: 5px; overflow: hidden; }
+    #chess-product-preview .cp-square { aspect-ratio: 1; position: relative; display: grid; place-items: center; background: var(--cp-light-square); }
+    #chess-product-preview .cp-square.cp-dark { background: var(--cp-dark-square); }
+    #chess-product-preview .cp-piece { font: clamp(24px, 4.7vw, 49px)/1 'Segoe UI Symbol', 'DejaVu Sans', serif; color: #17261c; user-select: none; }
+    #chess-product-preview .cp-white { color: #fffdf1; text-shadow: -1px 0 #233b2b, 0 1px #233b2b, 1px 0 #233b2b, 0 -1px #233b2b; }
+    #chess-product-preview .cp-coordinate { position: absolute; left: 3px; top: 1px; font-size: 10px; font-weight: 600; color: #253b28; }
+    #chess-product-preview .cp-file { inset: auto 3px 0 auto; }
+    #chess-product-preview .cp-last::after { content: ''; position: absolute; inset: 0; background: #e4d65b40; pointer-events: none; }
+    #chess-product-preview .cp-status { background: var(--cp-soft); padding: 12px; border-radius: 7px; margin-top: 14px; }
+    #chess-product-preview .cp-table { width: 100%; border-collapse: collapse; margin-top: 14px; font-variant-numeric: tabular-nums; }
+    #chess-product-preview .cp-table th { font-size: 12px; color: var(--cp-muted); font-weight: 500; text-align: left; }
+    #chess-product-preview .cp-table th, #chess-product-preview .cp-table td { padding: 10px 5px; border-bottom: 1px solid var(--cp-line); }
+    #chess-product-preview .cp-table th:first-child, #chess-product-preview .cp-table td:first-child { padding-left: 0; }
+    #chess-product-preview .cp-table tr:last-child td { border-bottom: 0; }
+    #chess-product-preview .cp-table .cp-end { text-align: right; }
+    #chess-product-preview .cp-scroll { overflow-x: auto; }
+    #chess-product-preview .cp-invite { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--cp-line); }
+    #chess-product-preview .cp-account { max-width: 390px; margin: 12px auto 24px; }
+    #chess-product-preview .cp-field { display: grid; gap: 6px; margin-top: 16px; }
+    #chess-product-preview input { font: inherit; min-width: 0; width: 100%; padding: 10px 12px; background: var(--cp-panel); border: 1px solid var(--cp-line); border-radius: 7px; color: var(--cp-ink); }
+    #chess-product-preview .cp-result { text-align: center; padding: 26px 12px 20px; }
+    #chess-product-preview .cp-result-symbol { font: 48px/1 'Segoe UI Symbol', serif; color: var(--cp-accent); margin-bottom: 12px; }
+    #chess-product-preview .cp-result-score { font-size: 28px; color: var(--cp-accent); font-weight: 650; margin: 10px 0; }
+    #chess-product-preview .cp-detail { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding-top: 15px; border-top: 1px solid var(--cp-line); margin-top: 16px; }
+    #chess-product-preview .cp-detail dt { color: var(--cp-muted); }
+    #chess-product-preview .cp-detail dd { margin: 0; text-align: right; }
+    #chess-product-preview .cp-log { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; background: var(--cp-soft); padding: 14px; border-radius: 7px; margin: 0; }
+    #chess-product-preview .cp-footer { padding: 10px 20px; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--cp-line); background: var(--cp-panel); color: var(--cp-muted); font-size: 12px; }
+    #chess-product-preview .cp-notice { margin-top: 13px; color: var(--cp-muted); }
+    @media (min-width: 1100px) { #chess-product-preview .cp-piece { font-size: 49px; } }
+    @media (max-width: 650px) {
+      #chess-product-preview .cp-layout { grid-template-columns: 1fr; }
+      #chess-product-preview .cp-main { padding: 14px; }
+      #chess-product-preview .cp-titlebar { padding-left: 14px; }
+      #chess-product-preview .cp-nav { padding: 8px; gap: 0; }
+      #chess-product-preview .cp-tab { padding: 8px 9px; }
+      #chess-product-preview .cp-piece { font-size: clamp(25px, 7vw, 48px); }
+      #chess-product-preview .cp-card { padding: 14px; }
+      #chess-product-preview .cp-coordinate { font-size: 9px; }
+    }
+    @media (pointer: coarse) {
+      #chess-product-preview button { min-height: 44px; }
+      #chess-product-preview input { font-size: 16px; }
+    }
+  </style>
+  <div class="cp-window">
+    <header class="cp-titlebar">
+      <span class="cp-logo" aria-hidden="true">♞</span>
+      <div><div class="cp-brand">Cờ vua Online</div><div class="cp-subtle">Chơi cùng bạn bè · Tích lũy điểm xếp hạng</div></div>
+    </header>
+    <nav class="cp-nav" role="tablist" aria-label="Màn hình ứng dụng">
+      <button type="button" class="cp-tab" id="cp-tab-account" role="tab" aria-selected="false" aria-controls="cp-account" data-screen="account">Tài khoản</button>
+      <button type="button" class="cp-tab" id="cp-tab-lobby" role="tab" aria-selected="false" aria-controls="cp-lobby" data-screen="lobby">Sảnh chơi</button>
+      <button type="button" class="cp-tab" id="cp-tab-game" role="tab" aria-selected="true" aria-controls="cp-game" data-screen="game">Bàn cờ</button>
+      <button type="button" class="cp-tab" id="cp-tab-result" role="tab" aria-selected="false" aria-controls="cp-result" data-screen="result">Kết quả</button>
+    </nav>
+    <main class="cp-main">
+      <section id="cp-account" role="tabpanel" aria-labelledby="cp-tab-account" hidden>
+        <form class="cp-card cp-account" id="cp-login-form">
+          <h2 id="cp-auth-title">Chào mừng trở lại</h2>
+          <p class="cp-subtle">Đăng nhập để tìm đối thủ và bắt đầu chơi.</p>
+          <label class="cp-field">Tên tài khoản<input id="cp-username" value="vatme" autocomplete="off" maxlength="24" required></label>
+          <label class="cp-field">Mật khẩu<input id="cp-password" type="password" placeholder="Nhập mật khẩu" autocomplete="off"></label>
+          <div class="cp-actions"><button class="cp-button cp-primary" id="cp-auth-submit" type="submit">Đăng nhập</button><button class="cp-button" type="button" id="cp-auth-toggle">Tạo tài khoản</button></div>
+          <p class="cp-notice cp-subtle" id="cp-auth-notice" aria-live="polite"></p>
+        </form>
+      </section>
+      <section id="cp-lobby" role="tabpanel" aria-labelledby="cp-tab-lobby" hidden>
+        <div class="cp-heading"><div><h2>Sảnh chơi</h2><p class="cp-subtle">Chọn một đối thủ sẵn sàng để gửi lời thách đấu.</p></div><span class="cp-tag"><span class="cp-dot"></span>Đang online</span></div>
+        <div class="cp-layout">
+          <div class="cp-card">
+            <h3>Người chơi sẵn sàng</h3>
+            <div class="cp-scroll"><table class="cp-table"><thead><tr><th>Người chơi</th><th>Hạng</th><th>Điểm</th><th class="cp-end">Thách đấu</th></tr></thead><tbody>
+              <tr><td>MinhAnh</td><td>16</td><td>48</td><td class="cp-end"><button class="cp-button cp-primary" type="button" data-challenge="MinhAnh">Mời chơi</button></td></tr>
+              <tr><td>QuangHuy</td><td>27</td><td>27</td><td class="cp-end"><button class="cp-button" type="button" data-challenge="QuangHuy">Mời chơi</button></td></tr>
+              <tr><td>LinhChi</td><td>31</td><td>21</td><td class="cp-end"><button class="cp-button" type="button" disabled aria-label="Không thể mời LinhChi vì chênh lệch 13 bậc">Lệch 13 bậc</button></td></tr>
+            </tbody></table></div>
+            <p class="cp-subtle" style="margin-top:12px">Có thể thách đấu người hơn hoặc kém bạn tối đa 10 bậc.</p>
+          </div>
+          <div class="cp-stack">
+            <div class="cp-card"><div class="cp-person"><span class="cp-avatar">V</span><div><h3 data-user-label>vatme</h3><p class="cp-subtle">Hạng 18 · <span data-score>42</span> điểm</p></div></div></div>
+            <div class="cp-card"><h3>Lời thách đấu</h3><p style="margin-top:10px" id="cp-invitation-text">MinhAnh muốn chơi một ván với bạn.</p><div class="cp-actions" id="cp-incoming-actions"><button class="cp-button cp-primary" type="button" id="cp-accept">Nhận lời</button><button class="cp-button" type="button" id="cp-decline">Từ chối</button></div><div class="cp-actions" id="cp-outgoing-actions" hidden><button class="cp-button" type="button" id="cp-cancel-invite">Hủy lời mời</button></div><p class="cp-notice cp-subtle" id="cp-invitation-status" aria-live="polite"></p></div>
+          </div>
+        </div>
+      </section>
+      <section id="cp-game" role="tabpanel" aria-labelledby="cp-tab-game">
+        <div class="cp-heading"><div><h2>Ván cờ #1042</h2><p class="cp-subtle">Bạn cầm quân Trắng</p></div><span class="cp-tag"><span class="cp-dot"></span>Đang diễn ra</span></div>
+        <div class="cp-layout">
+          <div>
+            <div class="cp-row cp-opponent"><div class="cp-person"><span class="cp-avatar">M</span><div><h3>MinhAnh</h3><p class="cp-subtle">Quân Đen · Hạng 16</p></div></div><span class="cp-subtle">48 điểm</span></div>
+            <div class="cp-board" id="cp-board" role="img" aria-label="Bàn cờ vua sau các nước 1 e4 e5, 2 Nf3 Nc6; đến lượt Trắng"></div>
+            <div class="cp-row cp-self"><div class="cp-person"><span class="cp-avatar">V</span><div><h3><span data-user-label>vatme</span> <span class="cp-subtle">· Bạn</span></h3><p class="cp-subtle">Quân Trắng · Hạng 18</p></div></div><span class="cp-subtle"><span data-score>42</span> điểm</span></div>
+          </div>
+          <aside class="cp-stack">
+            <div class="cp-card"><h3>Diễn biến ván đấu</h3><div class="cp-status"><strong>Đến lượt bạn</strong><div class="cp-subtle">Trắng đi nước thứ 3</div></div><table class="cp-table"><thead><tr><th>Nước</th><th>Trắng</th><th>Đen</th></tr></thead><tbody><tr><td>1</td><td>e4</td><td>e5</td></tr><tr><td>2</td><td>Nf3</td><td>Nc6</td></tr></tbody></table></div>
+            <div class="cp-card"><h3>Điều khiển ván đấu</h3><p class="cp-subtle" style="margin-top:8px">Xin ngừng ván sẽ bị xử thua và trừ 3 điểm.</p><div class="cp-actions"><button class="cp-button cp-danger" type="button" id="cp-resign">Xin ngừng ván</button></div><div class="cp-invite" id="cp-resign-confirm" hidden><p>Ngừng ván hiện tại?</p><div class="cp-actions"><button class="cp-button cp-primary" type="button" id="cp-continue">Tiếp tục chơi</button><button class="cp-button cp-danger" type="button" id="cp-confirm-resign">Xác nhận ngừng</button></div></div></div>
+          </aside>
+        </div>
+      </section>
+      <section id="cp-result" role="tabpanel" aria-labelledby="cp-tab-result" hidden>
+        <div class="cp-heading"><div><h2>Kết quả ván cờ</h2><p class="cp-subtle">Ván #1042 · vatme — MinhAnh</p></div><span class="cp-tag">Đã kết thúc</span></div>
+        <div class="cp-layout">
+          <div class="cp-card"><div class="cp-result"><div class="cp-result-symbol" aria-hidden="true">♔</div><h2 id="cp-result-title">Bạn thắng!</h2><p class="cp-subtle" id="cp-result-reason">Đối thủ xin ngừng ván.</p><div class="cp-result-score" id="cp-result-delta">+3 điểm</div><p id="cp-result-total">42 → 45 điểm</p></div><dl class="cp-detail"><dt>Đối thủ</dt><dd>MinhAnh</dd><dt>Kết quả đối thủ</dt><dd id="cp-opponent-result">Thua · −3 điểm</dd><dt>File log</dt><dd>match_1042.log</dd></dl><div class="cp-actions"><button class="cp-button cp-primary" type="button" id="cp-play-again">Tìm đối thủ mới</button><button class="cp-button" type="button" id="cp-show-log" aria-expanded="false" aria-controls="cp-log-panel">Xem file log</button></div></div>
+          <div class="cp-card"><h3>Thông tin trận đấu</h3><dl class="cp-detail"><dt>Bắt đầu</dt><dd>19:30:00</dd><dt>Kết thúc</dt><dd>19:31:15</dd><dt>IP người chơi Trắng</dt><dd>192.168.1.10</dd><dt>IP người chơi Đen</dt><dd>192.168.1.11</dd></dl><p class="cp-subtle">Kết quả và file log được gửi tới cả hai người chơi.</p><div id="cp-log-panel" style="margin-top:14px" hidden><pre class="cp-log" id="cp-log-text"></pre></div></div>
+        </div>
+      </section>
+    </main>
+    <footer class="cp-footer"><span>Cờ vua trực tuyến</span><span id="cp-footer-status" aria-live="polite">Ván #1042 · Lượt Trắng</span></footer>
+  </div>
+  <script>
+    (() => {
+      const root = document.getElementById('chess-product-preview');
+      const get = (id) => root.querySelector('#' + id);
+      const screens = ['account', 'lobby', 'game', 'result'];
+      const board = [
+        ['r','','b','q','k','b','n','r'],
+        ['p','p','p','p','','p','p','p'],
+        ['','','n','','','','',''],
+        ['','','','','p','','',''],
+        ['','','','','P','','',''],
+        ['','','','','','N','',''],
+        ['P','P','P','P','','P','P','P'],
+        ['R','N','B','Q','K','B','','R']
+      ];
+      const glyph = {r:'♜', n:'♞', b:'♝', q:'♛', k:'♚', p:'♟', R:'♜', N:'♞', B:'♝', Q:'♛', K:'♚', P:'♟'};
+      const preview = {screen:'game', resigned:false, username:'vatme', registering:false, invitation:'incoming'};
+      const design = {boardTheme:'Xanh lá'};
+      let gameFinished = false;
+      function save() {
+        if (window.openai && typeof window.openai.setWidgetState === 'function') {
+          window.openai.setWidgetState({modelContent:{screen:preview.screen, boardTheme:design.boardTheme}, privateContent:{resigned:preview.resigned}}).catch(() => {});
+        }
+      }
+      function applyTheme() {
+        const wood = design.boardTheme === 'Gỗ';
+        root.style.setProperty('--cp-light-square', wood ? 'light-dark(#f0ddbc, #deccaf)' : 'light-dark(#e9eddf, #cdd8c5)');
+        root.style.setProperty('--cp-dark-square', wood ? 'light-dark(#b38a60, #a7815a)' : 'light-dark(#88a184, #6c886b)');
+      }
+      function setScreen(screen, persist = true) {
+        preview.screen = screens.includes(screen) ? screen : 'game';
+        screens.forEach(name => {
+          get('cp-' + name).hidden = name !== preview.screen;
+          get('cp-tab-' + name).setAttribute('aria-selected', String(name === preview.screen));
+        });
+        if (preview.screen === 'result') gameFinished = true;
+        const labels = {account:'Tài khoản người chơi', lobby:'Sảnh chơi · Sẵn sàng tìm đối thủ', game:'Ván #1042 · Lượt Trắng', result:'Ván #1042 · Đã kết thúc'};
+        get('cp-footer-status').textContent = labels[preview.screen];
+        root.querySelectorAll('[data-score]').forEach(el => el.textContent = gameFinished && preview.screen !== 'game' ? (preview.resigned ? '39' : '45') : '42');
+        if (persist) save();
+      }
+      function renderResult() {
+        get('cp-result-title').textContent = preview.resigned ? 'Bạn thua ván này' : 'Bạn thắng!';
+        get('cp-result-reason').textContent = preview.resigned ? 'Bạn đã xin ngừng ván.' : 'Đối thủ xin ngừng ván.';
+        get('cp-result-delta').textContent = preview.resigned ? '−3 điểm' : '+3 điểm';
+        get('cp-result-total').textContent = preview.resigned ? '42 → 39 điểm' : '42 → 45 điểm';
+        get('cp-opponent-result').textContent = preview.resigned ? 'Thắng · +3 điểm' : 'Thua · −3 điểm';
+        get('cp-log-text').textContent = [
+          'MATCH 1042',
+          'START 19:30:00',
+          'END   19:31:15',
+          'WHITE ' + preview.username + ' 192.168.1.10',
+          'BLACK MinhAnh 192.168.1.11',
+          'MOVES',
+          '1. e2e4 e7e5',
+          '2. g1f3 b8c6',
+          'RESULT ' + (preview.resigned ? '0-1' : '1-0'),
+          'REASON ' + (preview.resigned ? 'WHITE_RESIGNED' : 'BLACK_RESIGNED')
+        ].join(String.fromCharCode(10));
+      }
+      function renderInvitation() {
+        get('cp-incoming-actions').hidden = preview.invitation !== 'incoming';
+        get('cp-outgoing-actions').hidden = preview.invitation !== 'outgoing';
+      }
+      board.forEach((row, rank) => row.forEach((piece, file) => {
+        const cell = document.createElement('div');
+        cell.className = 'cp-square' + ((rank + file) % 2 ? ' cp-dark' : '') + ((rank === 0 && file === 1) || (rank === 2 && file === 2) ? ' cp-last' : '');
+        cell.setAttribute('aria-hidden', 'true');
+        if (piece) {
+          const mark = document.createElement('span');
+          mark.className = 'cp-piece' + (piece === piece.toUpperCase() ? ' cp-white' : '');
+          mark.textContent = glyph[piece];
+          cell.appendChild(mark);
+        }
+        if (file === 0) {
+          const label = document.createElement('span');
+          label.className = 'cp-coordinate'; label.textContent = String(8 - rank); cell.appendChild(label);
+        }
+        if (rank === 7) {
+          const label = document.createElement('span');
+          label.className = 'cp-coordinate cp-file'; label.textContent = 'abcdefgh'[file]; cell.appendChild(label);
+        }
+        get('cp-board').appendChild(cell);
+      }));
+      root.querySelectorAll('[data-screen]').forEach(button => button.addEventListener('click', () => setScreen(button.dataset.screen)));
+      root.querySelectorAll('[data-challenge]').forEach(button => button.addEventListener('click', () => {
+        preview.invitation = 'outgoing';
+        get('cp-invitation-text').textContent = 'Đã gửi lời thách đấu tới ' + button.dataset.challenge + '.';
+        get('cp-invitation-status').textContent = 'Đang chờ phản hồi.';
+        renderInvitation();
+      }));
+      get('cp-cancel-invite').addEventListener('click', () => {
+        preview.invitation = 'none';
+        get('cp-invitation-text').textContent = 'Không có lời thách đấu đang chờ.';
+        get('cp-invitation-status').textContent = 'Đã hủy lời mời.';
+        renderInvitation();
+      });
+      get('cp-decline').addEventListener('click', () => {
+        preview.invitation = 'none';
+        get('cp-invitation-text').textContent = 'Không có lời thách đấu đang chờ.';
+        get('cp-invitation-status').textContent = 'Đã từ chối lời mời của MinhAnh.';
+        renderInvitation();
+      });
+      get('cp-accept').addEventListener('click', () => {
+        preview.resigned = false; gameFinished = false; preview.invitation = 'none';
+        get('cp-resign-confirm').hidden = true;
+        renderResult(); renderInvitation(); setScreen('game');
+      });
+      get('cp-resign').addEventListener('click', () => get('cp-resign-confirm').hidden = false);
+      get('cp-continue').addEventListener('click', () => get('cp-resign-confirm').hidden = true);
+      get('cp-confirm-resign').addEventListener('click', () => {
+        preview.resigned = true; renderResult(); setScreen('result');
+      });
+      get('cp-play-again').addEventListener('click', () => {
+        preview.invitation = 'none';
+        get('cp-invitation-text').textContent = 'Chọn một người chơi để gửi lời mời mới.';
+        get('cp-invitation-status').textContent = '';
+        renderInvitation(); setScreen('lobby');
+      });
+      get('cp-show-log').addEventListener('click', () => {
+        const panel = get('cp-log-panel'); panel.hidden = !panel.hidden;
+        get('cp-show-log').setAttribute('aria-expanded', String(!panel.hidden));
+        get('cp-show-log').textContent = panel.hidden ? 'Xem file log' : 'Ẩn file log';
+      });
+      get('cp-auth-toggle').addEventListener('click', () => {
+        preview.registering = !preview.registering;
+        get('cp-auth-title').textContent = preview.registering ? 'Tạo tài khoản mới' : 'Chào mừng trở lại';
+        get('cp-auth-submit').textContent = preview.registering ? 'Đăng ký' : 'Đăng nhập';
+        get('cp-auth-toggle').textContent = preview.registering ? 'Đã có tài khoản' : 'Tạo tài khoản';
+      });
+      get('cp-login-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        preview.username = get('cp-username').value.trim() || 'vatme';
+        root.querySelectorAll('[data-user-label]').forEach(el => el.textContent = preview.username);
+        get('cp-password').value = '';
+        renderResult(); setScreen('lobby');
+      });
+      function restore(saved) {
+        if (!saved) return;
+        const model = saved.modelContent || {};
+        const local = saved.privateContent || {};
+        if (['Xanh lá', 'Gỗ'].includes(model.boardTheme)) design.boardTheme = model.boardTheme;
+        preview.resigned = local.resigned === true;
+        applyTheme(); renderResult(); setScreen(model.screen || 'game', false);
+      }
+      renderResult(); applyTheme(); setScreen('game', false);
+      if (window.openai) restore(window.openai.widgetState);
+      window.addEventListener('openai:set_globals', event => {
+        if (event.detail && event.detail.globals && event.detail.globals.widgetState) restore(event.detail.globals.widgetState);
+      });
+      if (globalThis.Tweak) {
+        const tweak = new globalThis.Tweak({container:root, onChange:() => { applyTheme(); save(); }});
+        tweak.addSelect(design, 'boardTheme', {label:'Màu bàn cờ', options:['Xanh lá', 'Gỗ']});
+      }
+    })();
+  </script>
+</div>
